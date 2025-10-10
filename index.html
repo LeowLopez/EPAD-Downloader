@@ -4,52 +4,121 @@
   <meta charset="UTF-8">
   <title>EPAD Downloader - Extensão Chrome</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f5f7fa; color: #333; }
-    header { background: #007bff; color: white; padding: 30px 20px; text-align: center; }
-    header h1 { margin: 0; font-size: 2.2em; }
-    nav { margin-top: 10px; }
-    nav a { margin: 0 15px; color: #fff; text-decoration: none; font-weight: bold; }
-    nav a:hover { text-decoration: underline; }
-    .container { max-width: 900px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    h2 { color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 5px; margin-bottom: 20px; }
-    ol { padding-left: 20px; line-height: 1.8; }
-    code { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; }
-    .latest-version { background: #e9f7ef; padding: 20px; border-radius: 8px; margin-top: 20px; border: 1px solid #28a745; }
-    .latest-version p { margin: 5px 0; }
-    a.button { display: inline-block; padding: 12px 25px; background: #28a745; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 15px; }
-    a.button:hover { background: #218838; }
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1c25;
+      --accent: #00c6ff;
+      --accent-hover: #00a6e0;
+      --text: #e0e0e0;
+      --text-secondary: #a0a0b0;
+      --border: #2a2c36;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--surface);
+      color: var(--accent);
+      text-align: center;
+      padding: 15px;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: var(--surface);
+      padding: 36px;
+      border-radius: 14px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+    }
+
+    ol {
+      padding-left: 22px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    code {
+      background: #222430;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    .info-section {
+      margin-top: 25px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9em;
+      margin: 40px 0;
+    }
   </style>
 </head>
 <body>
 
   <header>
     <h1>EPAD Downloader</h1>
-    <nav>
-      <a href="#tutorial">Tutorial</a>
-      <a href="#latest">Última Versão</a>
-      <a href="releases/index.html">Releases</a>
-    </nav>
+    <p>Extensão para facilitar o download de arquivos nos sistemas FAB Sigadaer e SILOMS.</p>
   </header>
 
   <div class="container" id="tutorial">
     <h2>Tutorial de instalação</h2>
     <ol>
-      <li>Faça o download do ZIP da extensão (<a href="releases/index.html">Última versão</a>).</li>
-      <li>Extraia a pasta.</li>
-      <li>Abra o Chrome e acesse: <code>chrome://extensions</code></li>
-      <li>Ative o Modo do desenvolvedor.</li>
-      <li>Clique em "Carregar sem compactação" e selecione a pasta extraída.</li>
-      <li>O ícone da extensão aparecerá à direita da barra de endereços.</li>
+      <li>Baixe o arquivo ZIP da extensão na página de lançamentos;</li>
+      <li>Extraia a pasta;</li>
+      <li>Abra o Chrome e acesse: <code>chrome://extensions</code>;</li>
+      <li>Ative o modo desenvolvedor no canto superior direito;</li>
+      <li>Clique em “Carregar sem compactação” e selecione a pasta extraída;</li>
+      <li>O ícone da extensão aparecerá ao lado da barra de endereços.</li>
     </ol>
+
+    <div class="info-section">
+      <p><strong>Download da extensão:</strong> Acesse a <a href="releases/index.html">página de lançamentos</a> para obter a versão mais recente.</p>
+      <p><strong>Código-fonte:</strong> Disponível no <a href="https://github.com/LeowLopez/EPAD-Downloader/" target="_blank">GitHub</a>.</p>
+      <p><strong>Contato:</strong> Envie sugestões ou dúvidas para <a href="mailto:leonnyolwl@fab.mil.br">leonnyolwl@fab.mil.br</a>.</p>
+    </div>
   </div>
 
-  <div class="container latest-version" id="latest">
-    <h2>Última versão disponível</h2>
-    <p id="version">Carregando versão...</p>
-    <p id="notes"></p>
-    <a id="downloadLink" class="button" href="#">Baixar agora</a>
-  </div>
+  <footer>
+    <p>© 2025 EPAD Downloader. Seção de Análise de Dados da DIRINFRA.</p>
+  </footer>
 
-  <script src="latest-version.js"></script>
 </body>
 </html>

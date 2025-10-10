@@ -1,35 +1,159 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <title>EPAD Downloader - Releases</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #1f1f2e; color: #f0f0f0; }
-    .container { max-width: 750px; margin: 50px auto; background: #2c2c3e; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); }
-    h1 { color: #ffcc00; margin-bottom: 20px; font-size: 2em; }
-    h2 { color: #00bfff; margin-bottom: 15px; font-size: 1.5em; }
-    p { line-height: 1.6; font-size: 1em; }
-    a.button { display: inline-block; padding: 12px 25px; background: #4caf50; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 20px; transition: background 0.3s; }
-    a.button:hover { background: #45a049; }
-    .notes { background: #3a3a4d; padding: 18px; border-radius: 8px; margin-top: 15px; font-size: 0.95em; }
-    a.tutorial { display: inline-block; margin-top: 25px; color: #00bfff; text-decoration: none; font-weight: bold; }
-    a.tutorial:hover { text-decoration: underline; }
-    .info { margin-top: 15px; font-size: 0.9em; color: #c0c0c0; }
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1c25;
+      --accent: #00c6ff;
+      --accent-hover: #00a6e0;
+      --text: #e0e0e0;
+      --text-secondary: #a0a0b0;
+      --border: #2a2c36;
+      --success: #3fbf5b;
+      --success-hover: #34a64e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 16px;
+    }
+
+    .container {
+      max-width: 720px;
+      width: 100%;
+      background: var(--surface);
+      padding: 36px;
+      border-radius: 14px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border);
+      animation: fadeIn 0.3s ease;
+      text-align: left;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 1.9em;
+      margin-bottom: 12px;
+    }
+
+    p {
+      line-height: 1.6;
+      font-size: 1em;
+      color: var(--text-secondary);
+    }
+
+    .notes {
+      background: #222430;
+      padding: 18px;
+      border-radius: 10px;
+      margin-top: 20px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      min-height: 80px;
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 12px 28px;
+      background: var(--success);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background 0.25s, transform 0.15s;
+    }
+
+    a.button:hover {
+      background: var(--success-hover);
+      transform: translateY(-2px);
+    }
+
+    .info {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: var(--text-secondary);
+    }
+
+    a.tutorial {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    a.tutorial:hover {
+      color: var(--accent-hover);
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <h1>EPAD Downloader - Releases</h1>
-    <h2>Última versão disponível</h2>
-    <p>Esta página exibe a versão mais recente da extensão EPAD Downloader. Se você abriu esta aba automaticamente, significa que uma atualização está disponível.</p>
+    <h1>EPAD Downloader - Lançamentos</h1>
+    <p>Esta página exibe a versão mais recente da extensão EPAD Downloader. Se você abriu esta aba automaticamente,
+      significa que uma atualização está disponível.</p>
+
     <div class="notes" id="notes">
-      Carregando informações da versão...
+      <h2 id="version">Carregando versão...</h2>
+      <p id="releaseNotes">Carregando informações da versão...</p>
     </div>
-    <a id="downloadLink" class="button" href="#">Baixar agora</a>
-    <a href="../index.html" class="tutorial">← Tutorial e página principal</a>
-    <p class="info">Para instruções detalhadas de instalação e configuração, consulte a página principal da extensão.</p>
+
+    <a id="downloadLink" class="button" href="#" style="display:none;">Baixar agora</a>
+
+    <p class="info">Para instruções de instalação, consulte a página principal.
+    </p>
+    <a href="../index.html" class="tutorial">← Tutorial e página principal.</a>
   </div>
 
-  <script src="releases.js"></script>
+  <script>
+    fetch('latest.json')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('version').innerText = `Versão: ${data.version}`;
+        document.getElementById('releaseNotes').innerText = data.notes;
+        const link = document.getElementById('downloadLink');
+        if (data.url) {
+          link.href = data.url;
+          link.style.display = 'inline-block';
+        } else {
+          link.style.display = 'none';
+        }
+      })
+      .catch(err => {
+        console.error('Erro ao carregar releases:', err);
+        document.getElementById('notes').innerText = `Erro ao carregar informações da versão: ${err}`;
+      });
+  </script>
 </body>
+
 </html>
