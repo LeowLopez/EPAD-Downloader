@@ -28,3 +28,40 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
     }
   }
 });
+
+// --- Função de checagem de atualização ---
+async function checkForUpdate() {
+  try {
+    const res = await fetch('https://leowlopez.github.io/EPAD-Downloader/releases/latest.json');
+    if (!res.ok) throw new Error('Falha ao buscar versão');
+    
+    const data = await res.json();
+    const currentVersion = chrome.runtime.getManifest().version;
+
+    if (data.version !== currentVersion) {
+      notifyUpdate(data.url, data.version);
+    }
+  } catch (err) {
+    console.error('Erro ao checar atualização:', err);
+  }
+}
+
+function notifyUpdate(downloadUrl, newVersion) {
+  chrome.notifications.create({
+    type: 'basic',
+    iconUrl: 'icon.png',
+    title: 'Nova versão disponível!',
+    message: `Versão ${newVersion} está disponível. Clique para baixar.`,
+    buttons: [{ title: 'Baixar agora' }]
+  }, notifId => {
+    chrome.notifications.onButtonClicked.addListener((id, btnIdx) => {
+      if (id === notifId && btnIdx === 0) {
+        chrome.tabs.create({ url: downloadUrl });
+      }
+    });
+  });
+}
+
+// Checar ao iniciar e periodicamente
+setInterval(checkForUpdate, 1000 * 60 * 60); // a cada 1 hora
+checkForUpdate(); // ao iniciar

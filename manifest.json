@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "EPAD Downloader",
-  "version": "2.0",
+  "version": "2.0.0",
   "description": "Baixa documentos automaticamente com nomes organizados no SIGADAER e SILOMS.",
-  "permissions": ["scripting", "activeTab", "tabs"],
+  "permissions": ["scripting", "activeTab", "tabs", "notifications"],
   "host_permissions": [
     "*://*.sigadaer.intraer/*",
     "*://*.siloms.intraer/*"
