@@ -4,23 +4,30 @@
   <meta charset="UTF-8">
   <title>EPAD Downloader - Releases</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
-    .container { max-width: 700px; margin: 40px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
-    h1, h2 { color: #007bff; }
-    a.button { display: inline-block; padding: 10px 20px; background: #28a745; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 10px; }
-    a.tutorial { display: block; margin-top: 20px; color: #007bff; text-decoration: none; font-weight: bold; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #1f1f2e; color: #f0f0f0; }
+    .container { max-width: 750px; margin: 50px auto; background: #2c2c3e; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); }
+    h1 { color: #ffcc00; margin-bottom: 20px; font-size: 2em; }
+    h2 { color: #00bfff; margin-bottom: 15px; font-size: 1.5em; }
+    p { line-height: 1.6; font-size: 1em; }
+    a.button { display: inline-block; padding: 12px 25px; background: #4caf50; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 20px; transition: background 0.3s; }
+    a.button:hover { background: #45a049; }
+    .notes { background: #3a3a4d; padding: 18px; border-radius: 8px; margin-top: 15px; font-size: 0.95em; }
+    a.tutorial { display: inline-block; margin-top: 25px; color: #00bfff; text-decoration: none; font-weight: bold; }
     a.tutorial:hover { text-decoration: underline; }
+    .info { margin-top: 15px; font-size: 0.9em; color: #c0c0c0; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Releases - EPAD Downloader</h1>
-    <div id="latestRelease">
-      <h2>Carregando versão...</h2>
-      <p id="notes"></p>
-      <a id="downloadLink" class="button" href="#">Baixar agora</a>
+    <h1>EPAD Downloader - Releases</h1>
+    <h2>Última versão disponível</h2>
+    <p>Esta página exibe a versão mais recente da extensão EPAD Downloader. Se você abriu esta aba automaticamente, significa que uma atualização está disponível.</p>
+    <div class="notes" id="notes">
+      Carregando informações da versão...
     </div>
-    <a href="../index.html" class="tutorial">← Voltar ao tutorial e página principal</a>
+    <a id="downloadLink" class="button" href="#">Baixar agora</a>
+    <a href="../index.html" class="tutorial">← Tutorial e página principal</a>
+    <p class="info">Para instruções detalhadas de instalação e configuração, consulte a página principal da extensão.</p>
   </div>
 
   <script src="releases.js"></script>

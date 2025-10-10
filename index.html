@@ -4,17 +4,24 @@
   <meta charset="UTF-8">
   <title>EPAD Downloader - Extensão Chrome</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
-    header { background: #007bff; color: white; padding: 20px; text-align: center; }
-    .container { max-width: 800px; margin: 30px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
-    h2 { color: #007bff; }
-    a.button { display: inline-block; padding: 10px 20px; background: #28a745; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 15px; }
-    nav a { margin-right: 15px; color: #007bff; text-decoration: none; font-weight: bold; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f5f7fa; color: #333; }
+    header { background: #007bff; color: white; padding: 30px 20px; text-align: center; }
+    header h1 { margin: 0; font-size: 2.2em; }
+    nav { margin-top: 10px; }
+    nav a { margin: 0 15px; color: #fff; text-decoration: none; font-weight: bold; }
     nav a:hover { text-decoration: underline; }
-    ul { padding-left: 20px; }
+    .container { max-width: 900px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    h2 { color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 5px; margin-bottom: 20px; }
+    ol { padding-left: 20px; line-height: 1.8; }
+    code { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; }
+    .latest-version { background: #e9f7ef; padding: 20px; border-radius: 8px; margin-top: 20px; border: 1px solid #28a745; }
+    .latest-version p { margin: 5px 0; }
+    a.button { display: inline-block; padding: 12px 25px; background: #28a745; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 15px; }
+    a.button:hover { background: #218838; }
   </style>
 </head>
 <body>
+
   <header>
     <h1>EPAD Downloader</h1>
     <nav>
@@ -36,8 +43,8 @@
     </ol>
   </div>
 
-  <div class="container" id="latest">
-    <h2>Última versão</h2>
+  <div class="container latest-version" id="latest">
+    <h2>Última versão disponível</h2>
     <p id="version">Carregando versão...</p>
     <p id="notes"></p>
     <a id="downloadLink" class="button" href="#">Baixar agora</a>
