@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>EPAD Downloader - Extensão Chrome</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+    header { background: #007bff; color: white; padding: 20px; text-align: center; }
+    .container { max-width: 800px; margin: 30px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+    h2 { color: #007bff; }
+    a.button { display: inline-block; padding: 10px 20px; background: #28a745; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+    nav a { margin-right: 15px; color: #007bff; text-decoration: none; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    ul { padding-left: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EPAD Downloader</h1>
+    <nav>
+      <a href="#tutorial">Tutorial</a>
+      <a href="#latest">Última Versão</a>
+      <a href="releases/index.html">Releases</a>
+    </nav>
+  </header>
+
+  <div class="container" id="tutorial">
+    <h2>Tutorial de instalação</h2>
+    <ol>
+      <li>Faça o download do ZIP da extensão (<a href="releases/index.html">Última versão</a>).</li>
+      <li>Extraia a pasta.</li>
+      <li>Abra o Chrome e acesse: <code>chrome://extensions</code></li>
+      <li>Ative o Modo do desenvolvedor.</li>
+      <li>Clique em "Carregar sem compactação" e selecione a pasta extraída.</li>
+      <li>O ícone da extensão aparecerá à direita da barra de endereços.</li>
+    </ol>
+  </div>
+
+  <div class="container" id="latest">
+    <h2>Última versão</h2>
+    <p id="version">Carregando versão...</p>
+    <p id="notes"></p>
+    <a id="downloadLink" class="button" href="#">Baixar agora</a>
+  </div>
+
+  <script src="latest-version.js"></script>
+</body>
+</html>

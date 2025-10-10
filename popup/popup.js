@@ -1,3 +1,10 @@
+fetch('../releases/latest.json')
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('version').innerText = ` v${data.version}`;
+  })
+  .catch(err => console.error('Erro ao carregar releases:', err));
+
 document.getElementById('baixarBtn').addEventListener('click', () => {
   const modeloSelecionado = document.getElementById('modeloSelect').value;
 

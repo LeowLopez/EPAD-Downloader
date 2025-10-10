@@ -4,29 +4,25 @@
   <meta charset="UTF-8">
   <title>EPAD Downloader - Releases</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f4; }
-    .card { background: #fff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
-    h1 { text-align: center; }
-    a.button { display: inline-block; padding: 10px 20px; background: #007bff; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+    .container { max-width: 700px; margin: 40px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+    h1, h2 { color: #007bff; }
+    a.button { display: inline-block; padding: 10px 20px; background: #28a745; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 10px; }
+    a.tutorial { display: block; margin-top: 20px; color: #007bff; text-decoration: none; font-weight: bold; }
+    a.tutorial:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>EPAD Downloader - Última versão</h1>
-    <p id="version">Carregando versão...</p>
-    <p id="notes"></p>
-    <a id="downloadLink" class="button" href="#">Baixar agora</a>
+  <div class="container">
+    <h1>Releases - EPAD Downloader</h1>
+    <div id="latestRelease">
+      <h2>Carregando versão...</h2>
+      <p id="notes"></p>
+      <a id="downloadLink" class="button" href="#">Baixar agora</a>
+    </div>
+    <a href="../index.html" class="tutorial">← Voltar ao tutorial e página principal</a>
   </div>
 
-  <script>
-    fetch('latest.json')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('version').innerText = `Versão: ${data.version}`;
-        document.getElementById('notes').innerText = data.notes;
-        document.getElementById('downloadLink').href = data.url;
-      })
-      .catch(err => console.error('Erro ao carregar releases:', err));
-  </script>
+  <script src="releases.js"></script>
 </body>
 </html>
