@@ -1,3 +1,4 @@
+// Listener para mensagens (alteração de ícone)
 chrome.runtime.onMessage.addListener((msg, sender) => {
   if (msg.action === 'verificar_site') {
     const tab = sender.tab;
@@ -22,7 +23,6 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
         },
         tabId: tab.id
       });
-
     } else {
       console.warn('tabId ausente. Não foi possível alterar o ícone.');
     }
@@ -39,29 +39,14 @@ async function checkForUpdate() {
     const currentVersion = chrome.runtime.getManifest().version;
 
     if (data.version !== currentVersion) {
-      notifyUpdate(data.url, data.version);
+      // Abre a página de releases
+      chrome.tabs.create({ url: 'https://leowlopez.github.io/EPAD-Downloader/releases/' });
     }
   } catch (err) {
     console.error('Erro ao checar atualização:', err);
   }
 }
 
-function notifyUpdate(downloadUrl, newVersion) {
-  chrome.notifications.create({
-    type: 'basic',
-    iconUrl: 'icon.png',
-    title: 'Nova versão disponível!',
-    message: `Versão ${newVersion} está disponível. Clique para baixar.`,
-    buttons: [{ title: 'Baixar agora' }]
-  }, notifId => {
-    chrome.notifications.onButtonClicked.addListener((id, btnIdx) => {
-      if (id === notifId && btnIdx === 0) {
-        chrome.tabs.create({ url: downloadUrl });
-      }
-    });
-  });
-}
-
 // Checar ao iniciar e periodicamente
-setInterval(checkForUpdate, 1000 * 60 * 60); // a cada 1 hora
 checkForUpdate(); // ao iniciar
+setInterval(checkForUpdate, 1000 * 60 * 60); // a cada 1 hora

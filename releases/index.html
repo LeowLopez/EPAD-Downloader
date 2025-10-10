@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>EPAD Downloader - Releases</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f4; }
+    .card { background: #fff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+    h1 { text-align: center; }
+    a.button { display: inline-block; padding: 10px 20px; background: #007bff; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>EPAD Downloader - Última versão</h1>
+    <p id="version">Carregando versão...</p>
+    <p id="notes"></p>
+    <a id="downloadLink" class="button" href="#">Baixar agora</a>
+  </div>
+
+  <script>
+    fetch('latest.json')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('version').innerText = `Versão: ${data.version}`;
+        document.getElementById('notes').innerText = data.notes;
+        document.getElementById('downloadLink').href = data.url;
+      })
+      .catch(err => console.error('Erro ao carregar releases:', err));
+  </script>
+</body>
+</html>
