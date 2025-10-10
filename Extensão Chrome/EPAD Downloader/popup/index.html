@@ -34,32 +34,41 @@
       <button id="baixarBtn">Baixar PDF</button>
     </div>
 
-    <div id="areaSiloms" style="display: none;">
+    <div id="areaSiloms" class="oculto">
       <p><strong>Baixar documentos do SILOMS</strong></p>
       <button id="baixarSilomsBtn">Iniciar Download</button>
       <br />
       <input type="checkbox" id="checkSiloms" />
-      <label style="user-select: none;" for="checkSiloms">Incluir nº sequencial</label>
+      <label for="checkSiloms" class="labelSequencial">Incluir nº sequencial</label>
       <br />
-      <p id="statusSiloms" style="margin-top: 10px;">Aguardando...</p>
+      <!-- SWITCH -->
+      <div id="switchContainer" class="switchContainer">
+        <span>SILOMS</span>
+        <label class="switch">
+          <input type="checkbox" id="tipoSwitch">
+          <span class="slider round"></span>
+        </label>
+        <span>AUTO</span>
+      </div>
+      <p id="statusSiloms"></p>
     </div>
-  </div>
 
-  <div id="logConsole" class="oculto"></div>
 
-  <div id="creditos" align="center">
-    <a class="semLink" href="#" id="toggleCreditos">
-      Créditos <span id="setaCreditos">▼</span>
-    </a>
-    <div id="creditosDetalhados" class="ocultoCreditos">
-      <p><strong>Desenvolvido pela Seção de Análise de Dados da DIRINFRA</strong></p>
-      <p>Idealizador: - Cap QOEng CIV RAMON Nunes de Oliveira</p>
-      <p>Desenvolvedores:</p>
-      <p>- 1º Ten QOEng CIV Gabriel LESSA de Araújo;</p>
-      <p>- 2º Ten QOCon CIV LEÔNNYO Wender Lopes.</p><br />
-      <a href="https://github.com/LeowLopez/FAB-Tools" target="_blank">Versão 2.0 - junho/2025</a>
+    <div id="logConsole" class="oculto"></div>
+
+    <div id="creditos" align="center">
+      <a class="semLink" href="#" id="toggleCreditos">
+        Créditos <span id="setaCreditos">▼</span>
+      </a>
+      <div id="creditosDetalhados" class="ocultoCreditos">
+        <p><strong>Desenvolvido pela Seção de Análise de Dados da DIRINFRA</strong></p>
+        <p>Idealizador: - Cap QOEng CIV RAMON Nunes de Oliveira</p>
+        <p>Desenvolvedores:</p>
+        <p>- 1º Ten QOEng CIV Gabriel LESSA de Araújo;</p>
+        <p>- 2º Ten QOCon CIV LEÔNNYO Wender Lopes.</p><br />
+        <a href="https://github.com/LeowLopez/FAB-Tools" target="_blank">Versão 2.0 - junho/2025</a>
+      </div>
     </div>
-  </div>
 
 </body>
 

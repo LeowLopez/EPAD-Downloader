@@ -10,11 +10,16 @@ document.getElementById('baixarBtn').addEventListener('click', () => {
 });
 
 document.getElementById('baixarSilomsBtn').addEventListener('click', () => {
+
   const incluirSequencial = document.getElementById('checkSiloms').checked;
+  const tipoSwitch = document.getElementById('tipoSwitch');
+  const tipoSequencial = tipoSwitch.checked ? 'AUTO' : 'SILOMS';
+
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, {
       action: 'baixar_siloms',
-      incluirSequencial: incluirSequencial
+      incluirSequencial: incluirSequencial,
+      tipoSequencial: tipoSequencial
     });
   });
 });
@@ -57,7 +62,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
             });
         });
         p.appendChild(a);
-        
+
       } else {
         p.textContent = msg.log;
         switch (msg.tipo) {
@@ -81,6 +86,16 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     }
   }
 });
+
+// Mostrar/ocultar switch ao marcar "Incluir nº sequencial"
+const checkSiloms = document.getElementById("checkSiloms");
+const switchContainer = document.getElementById("switchContainer");
+
+checkSiloms.addEventListener("change", () => {
+  switchContainer.style.display = checkSiloms.checked ? "flex" : "none";
+});
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.getElementById('toggleCreditos');

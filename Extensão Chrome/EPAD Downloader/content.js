@@ -2,7 +2,7 @@
   chrome.runtime.sendMessage({ action: 'verificar_site' });
 
   ///// INÍCIO DO SCRIPT SILOMS ---------------------------------------------------------------
-  const baixarSiloms = async (incluirSequencial) => {
+  const baixarSiloms = async (incluirSequencial, tipoSequencial) => {
     const links = Array.from(document.querySelectorAll('a[target="frameDownload"]'));
 
     for (let index = 0; index < links.length; index++) {
@@ -10,7 +10,12 @@
       const i = String(index + 1).padStart(4, '0');
       const span = document.querySelector(`span#span_NM_DOCUMENTO_PA_${i}`);
 
-      let sequencial = incluirSequencial ? `${i}_` : '';
+      let sequencial = '';
+      if(incluirSequencial) {
+        if(tipoSequencial === 'SILOMS') sequencial = `${document.querySelector(`span#span_vNR_ORDEM_PA_${i}`).innerText}_`;
+        else sequencial = `${i}_`;
+      }
+
       const nome = span ? `${sequencial}${span.innerText.trim().replace(/[\\/:*?"<>|]/g, '')}` : `arquivo_${i}`;
 
       try {
@@ -644,7 +649,7 @@
       enviarLog("fim", "Processo finalizado!")
     }
     if (msg.action === 'baixar_siloms') {
-      baixarSiloms(msg.incluirSequencial);
+      baixarSiloms(msg.incluirSequencial, msg.tipoSequencial);
     }
   });
 
