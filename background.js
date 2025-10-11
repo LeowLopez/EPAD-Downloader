@@ -40,7 +40,7 @@ async function checkForUpdate() {
 
     if (data.version !== currentVersion) {
       // Abre a página de releases
-      chrome.tabs.create({ url: `https://leowlopez.github.io/EPAD-Downloader/releases/?version=${currentVersionersion}` });
+      chrome.tabs.create({ url: `https://leowlopez.github.io/EPAD-Downloader/releases/?version=${currentVersion}` });
     }
   } catch (err) {
     console.error('Erro ao checar atualização:', err);
