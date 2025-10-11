@@ -1,5 +1,5 @@
 {
   "version": "2.0.0",
   "url": "EPAD-Downloader_v2.0.0.zip",
-  "notes": "Alterações: Número sequencial opcional do SILOMS ou automático e página de update."
+  "notes": "Número sequencial opcional na aba SILOMS;\nAo habilitar 'Incluir nº sequencial', pode-se optar por SILOMS (número exibido na tela) ou AUTO(mático)."
 }

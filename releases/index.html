@@ -15,6 +15,7 @@
       --border: #2a2c36;
       --success: #3fbf5b;
       --success-hover: #34a64e;
+      --alert: #ff9800;
     }
 
     * {
@@ -63,12 +64,6 @@
       margin-bottom: 12px;
     }
 
-    p {
-      line-height: 1.6;
-      font-size: 1em;
-      color: var(--text-secondary);
-    }
-
     .notes {
       background: #222430;
       padding: 18px;
@@ -77,6 +72,16 @@
       border: 1px solid var(--border);
       color: var(--text);
       min-height: 80px;
+    }
+
+    .notes ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .notes li {
+      margin-bottom: 6px;
+      line-height: 1.5;
     }
 
     a.button {
@@ -96,12 +101,6 @@
       transform: translateY(-2px);
     }
 
-    .info {
-      margin-top: 20px;
-      font-size: 0.9em;
-      color: var(--text-secondary);
-    }
-
     a.tutorial {
       display: inline-block;
       margin-top: 10px;
@@ -114,15 +113,19 @@
     a.tutorial:hover {
       color: var(--accent-hover);
     }
+
+    p {
+      color: var(--text-secondary);
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
+  <div class="container" id="mainContainer">
     <h1>EPAD Downloader - Lançamentos</h1>
-    <p>Esta página exibe a versão mais recente da extensão EPAD Downloader. Se você abriu esta aba automaticamente,
-      significa que uma atualização está disponível.</p>
-
+    <p>
+      Baixe a versão mais recente agora.
+    </p>
     <div class="notes" id="notes">
       <h2 id="version">Carregando versão...</h2>
       <p id="releaseNotes">Carregando informações da versão...</p>
@@ -130,28 +133,48 @@
 
     <a id="downloadLink" class="button" href="#" style="display:none;">Baixar agora</a>
 
-    <p class="info">Para instruções de instalação, consulte a página principal.
-    </p>
     <a href="../index.html" class="tutorial">← Tutorial e página principal.</a>
   </div>
 
   <script>
+    // Pegar versão da query ?version=
+    const params = new URLSearchParams(location.search)
+    const queriedVersion = params.get('version')
+
     fetch('latest.json')
       .then(res => res.json())
       .then(data => {
-        document.getElementById('version').innerText = `Versão: ${data.version}`;
-        document.getElementById('releaseNotes').innerText = data.notes;
-        const link = document.getElementById('downloadLink');
-        if (data.url) {
-          link.href = data.url;
-          link.style.display = 'inline-block';
+        const currentVersion = data.version
+
+        if (queriedVersion) {
+          document.getElementById('version').innerText =
+            `Atualização disponível: Versão ${queriedVersion} → ${currentVersion}`
         } else {
-          link.style.display = 'none';
+          document.getElementById('version').innerText = `Versão: ${currentVersion}`
+        }
+
+        const raw = data.notes?.trim() || ''
+        const lines = raw.split('\n')
+
+        let html = '<strong>Novidades:</strong><ul>'
+        lines.forEach(l => {
+          if (l.trim()) {
+            html += `<li>${l.replace(/^- /, '')}</li>`
+          }
+        })
+        html += '</ul>'
+
+        document.getElementById('releaseNotes').innerHTML = html
+
+        const link = document.getElementById('downloadLink')
+        if (data.url) {
+          link.href = data.url
+          link.style.display = 'inline-block'
         }
       })
       .catch(err => {
-        console.error('Erro ao carregar releases:', err);
-        document.getElementById('notes').innerText = `Erro ao carregar informações da versão: ${err}`;
+        console.error('Erro ao carregar releases:', err)
+        document.getElementById('notes').innerText = `Erro ao carregar informações da versão: ${err}`
       });
   </script>
 </body>
