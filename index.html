@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EPAD Downloader - Extensão Chrome</title>
   <style>
     :root {
@@ -12,113 +13,592 @@
       --text: #e0e0e0;
       --text-secondary: #a0a0b0;
       --border: #2a2c36;
+      --success: #00ff88;
+      --warning: #ffaa00;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    a {
+        color: var(--accent);
+        text-decoration: none;
+    }
 
     body {
-      margin: 0;
       font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg);
       color: var(--text);
+      line-height: 1.6;
     }
 
-    header {
-      background: var(--surface);
-      color: var(--accent);
-      text-align: center;
-      padding: 15px;
+    /* Navegação Fixa */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 28, 37, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
       border-bottom: 1px solid var(--border);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
     }
 
-    header h1 {
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
       margin: 0;
-      font-size: 2em;
+      flex-wrap: wrap;
     }
 
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
+    nav li {
+      margin: 0;
+    }
+
+    nav a {
+      display: block;
+      padding: 18px 25px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+      background: rgba(0, 198, 255, 0.05);
+    }
+
+    nav a.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* Offset para compensar menu fixo */
+    section {
+      scroll-margin-top: 80px;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #1a1c25 0%, #0f1117 100%);
+      border-bottom: 2px solid var(--accent);
+      padding: 120px 20px 60px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 198, 255, 0.4);
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      color: var(--accent);
+      margin-bottom: 20px;
+      text-shadow: 0 0 30px rgba(0, 198, 255, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      color: var(--text-secondary);
+      /* max-width: 700px; */
+      margin: 0 auto;
+    }
+
+    .hero .systems {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .system-badge {
       background: var(--surface);
-      padding: 36px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.1em;
+    }
+
+    /* Container padrão */
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .section {
+      background: var(--surface);
+      padding: 40px;
       border-radius: 14px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
       border: 1px solid var(--border);
+      margin-bottom: 40px;
     }
 
     h2 {
       color: var(--accent);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-      margin-bottom: 18px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 25px;
+      font-size: 2em;
     }
 
-    ol {
-      padding-left: 22px;
-      line-height: 1.8;
+    h3 {
+      color: var(--success);
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-size: 1.5em;
+    }
+
+    /* Grid de features */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 100%;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .feature-card {
+      background: #222430;
+      padding: 25px;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 198, 255, 0.2);
+    }
+
+    .feature-card h4 {
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-size: 1.2em;
+    }
+
+    .feature-card p {
       color: var(--text-secondary);
+      font-size: 0.95em;
+    }
+
+    /* Lista de instruções */
+    ol {
+      padding-left: 25px;
+      color: var(--text-secondary);
+    }
+
+    ol li {
+      margin-bottom: 12px;
+      line-height: 1.8;
     }
 
     code {
       background: #222430;
-      padding: 2px 6px;
+      padding: 3px 8px;
       border-radius: 4px;
       color: var(--accent);
+      font-family: "Consolas", "Monaco", monospace;
     }
 
-    .info-section {
-      margin-top: 25px;
-      line-height: 1.6;
-      color: var(--text-secondary);
+    /* Sistema específico */
+    .system-section {
+      background: linear-gradient(135deg, #1a1c25 0%, #222430 100%);
+      padding: 30px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      border: 1px solid var(--border);
     }
 
-    a {
+    .system-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .system-icon {
+      font-size: 2em;
+    }
+
+    .system-title {
+      color: var(--success);
+      font-size: 1.8em;
+      margin: 0;
+    }
+
+    .capability-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .capability-list li {
+      padding: 12px 0 12px 30px;
+      position: relative;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .capability-list li:last-child {
+      border-bottom: none;
+    }
+
+    .capability-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    /* Links e botões */
+    .cta-container {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #0f1117;
+      padding: 15px 35px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1em;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 198, 255, 0.3);
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 198, 255, 0.5);
+    }
+
+    .info-links {
+      margin-top: 30px;
+      padding: 20px;
+      background: #222430;
+      border-radius: 8px;
+    }
+
+    .info-links p {
+      margin-bottom: 10px;
+    }
+
+    .info-links a {
       color: var(--accent);
       text-decoration: none;
       transition: color 0.2s;
     }
 
-    a:hover {
+    .info-links a:hover {
       color: var(--accent-hover);
+      text-decoration: underline;
     }
 
+    /* Seção de Créditos */
+    .credits-grid {
+      display: grid;
+      grid-template-columns: 500px;
+      gap: 25px;
+      margin-top: 30px;
+      justify-content: center;
+    }
+
+    .credit-card {
+      background: linear-gradient(135deg, #222430 0%, #1a1c25 100%);
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .credit-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 198, 255, 0.15);
+    }
+
+    .credit-card .role {
+      color: var(--accent);
+      font-size: 0.9em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .credit-card .name {
+      color: var(--text);
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .credit-card .contribution {
+      color: var(--text-secondary);
+      font-size: 0.9em;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .credit-card .icon {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 0 10px rgba(0, 198, 255, 0.3));
+    }
+
+    .org-credit {
+      text-align: center;
+      padding: 30px;
+      /* background: linear-gradient(135deg, #1a1c25 0%, #0f1117 100%); */
+      border-radius: 10px;
+      /* border: 2px solid var(--accent); */
+      margin-bottom: 30px;
+    }
+
+    .org-credit h3 {
+      color: var(--accent);
+      margin: 0 0 10px 0;
+      font-size: 1.5em;
+    }
+
+    .org-credit p {
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
       color: var(--text-secondary);
       font-size: 0.9em;
-      margin: 40px 0;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      margin-top: 60px;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      nav a { padding: 15px 15px; font-size: 0.9em; }
+      .hero { padding-top: 100px; }
+      .hero h1 { font-size: 2em; }
+      .hero p { font-size: 1.1em; }
+      .section { padding: 25px; }
+      h2 { font-size: 1.6em; }
+      .credits-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <header>
+  <!-- Navegação Fixa -->
+  <nav>
+    <ul>
+      <li><a href="#inicio" class="nav-link">Início</a></li>
+      <li><a href="#funcionalidades" class="nav-link">Funcionalidades</a></li>
+      <li><a href="#instalacao" class="nav-link">Instalação</a></li>
+      <li><a href="#creditos" class="nav-link">Créditos</a></li>
+      <li><a href="#contato" class="nav-link">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="inicio" class="hero">
     <h1>EPAD Downloader</h1>
-    <p>Extensão para facilitar o download de arquivos nos sistemas FAB Sigadaer e SILOMS.</p>
-  </header>
+    <p>Extensão Chrome para facilitar o download de arquivos nos sistemas FAB SIGADAER e SILOMS</p>
+    <!-- <div class="systems">
+      <div class="system-badge">SIGADAER</div>
+      <div class="system-badge">SILOMS</div>
+    </div> -->
+  </section>
 
-  <div class="container" id="tutorial">
-    <h2>Tutorial de instalação</h2>
-    <ol>
-      <li>Baixe o arquivo ZIP da extensão na página de lançamentos;</li>
-      <li>Extraia a pasta;</li>
-      <li>Abra o Chrome e acesse: <code>chrome://extensions</code>;</li>
-      <li>Ative o modo desenvolvedor no canto superior direito;</li>
-      <li>Clique em “Carregar sem compactação” e selecione a pasta extraída;</li>
-      <li>O ícone da extensão aparecerá ao lado da barra de endereços.</li>
-    </ol>
+  <!-- O que a extensão faz -->
+  <section id="funcionalidades">
+    <div class="container">
+      <div class="section">
+        <h2>O que a extensão faz?</h2>
+        
+        <!-- SIGADAER -->
+        <div class="system-section">
+          <div class="system-header">
+            <!-- <span class="system-icon">📄</span> -->
+            <h3 class="system-title">SIGADAER</h3>
+          </div>
+          <p style="color: var(--text-secondary); margin-bottom: 20px;">
+            Automatiza o download e renomeação de documentos oficiais com nomenclatura padronizada.
+          </p>
+          <ul class="capability-list">
+            <li><strong>Download automático</strong> de documentos principais e anexos</li>
+            <li><strong>Nomenclatura padronizada:</strong> <code>DATA_ID_ORIGEM-DESTINO_ASSUNTO.pdf</code></li>
+            <li><strong>Extração inteligente de metadados</strong> das abas "Detalhes" e "Documento/Anexos"</li>
+            <li><strong>Suporte para 5 modelos:</strong> Ofício, Minuta, Processo, Processo Único e Despacho/Portaria</li>
+            <li><strong>Normalização automática:</strong> remove acentos, caracteres especiais e formata datas</li>
+            <li><strong>Limite de caracteres:</strong> ajusta nomes para respeitar limite do Windows (255 chars)</li>
+            <!-- <li><strong>Detecção automática de tipo de arquivo</strong> (PDF, DOCX, XLSX, PPTX)</li> -->
+            <li><strong>Processo Único:</strong> copia nome para área de transferência e abre impressão</li>
+          </ul>
+        </div>
 
-    <div class="info-section">
-      <p><strong>Download da extensão:</strong> Acesse a <a href="releases/index.html">página de lançamentos</a> para obter a versão mais recente.</p>
-      <p><strong>Código-fonte:</strong> Disponível no <a href="https://github.com/LeowLopez/EPAD-Downloader/" target="_blank">GitHub</a>.</p>
-      <p><strong>Contato:</strong> Envie sugestões ou dúvidas para <a href="mailto:portal.dirinfra@fab.mil.br">portal.dirinfra@fab.mil.br</a>.</p>
+        <!-- SILOMS -->
+        <div class="system-section">
+          <div class="system-header">
+            <!-- <span class="system-icon">📦</span> -->
+            <h3 class="system-title">SILOMS</h3>
+          </div>
+          <p style="color: var(--text-secondary); margin-bottom: 20px;">
+            Realiza download em lote de múltiplos arquivos com opção de numeração sequencial.
+          </p>
+          <ul class="capability-list">
+            <li><strong>Download em lote</strong> de todos os arquivos disponíveis na página</li>
+            <li><strong>Nomenclatura preservada</strong> dos arquivos originais</li>
+            <li><strong>Opção de numeração sequencial:</strong> adiciona prefixo numérico aos arquivos</li>
+            <li><strong>Dois tipos de sequência:</strong> numeração simples (0001, 0002...) ou ordem SILOMS</li>
+            <li><strong>Feedback em tempo real</strong> do progresso de download</li>
+            <li><strong>Tratamento de erros</strong> individual por arquivo</li>
+            <li><strong>Intervalo automático</strong> entre downloads (500ms) para evitar sobrecarga</li>
+          </ul>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <h4>🔄 Atualizações Automáticas</h4>
+            <p>Verifica novas versões a cada hora e notifica quando há atualização disponível</p>
+          </div>
+          <div class="feature-card">
+            <h4>🎯 Ícone Inteligente</h4>
+            <p>Muda de cor automaticamente quando detecta sistemas compatíveis</p>
+          </div>
+          <div class="feature-card">
+            <h4>📊 Logs Detalhados</h4>
+            <p>Acompanhe todo o processo de download com mensagens informativas no popup</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Download -->
+      <div class="cta-container">
+        <a href="releases/index.html" class="btn">Página de Lançamentos</a>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Tutorial de instalação -->
+  <section id="instalacao">
+    <div class="container">
+      <div class="section">
+        <h2>Tutorial de instalação</h2>
+        <ol>
+          <li>Baixe o arquivo ZIP da extensão na <a href="releases/index.html">página de lançamentos</a>;</li>
+          <li>Extraia a pasta para um local permanente no seu computador;</li>
+          <li>Abra o Chrome e acesse: <code>chrome://extensions</code>;</li>
+          <li>Ative o <strong>modo desenvolvedor</strong> no canto superior direito;</li>
+          <li>Clique em <strong>"Carregar sem compactação"</strong> e selecione a pasta extraída;</li>
+          <li>As extensões do Chrome podem ser encontradas no lado direito da barra de endereços, no ícone de 🧩;</li>
+          <li>Você pode fixar a extensão clicando em 📌, então o ícone da extensão ficará sempre visível - e colorido nos sites habilitados.</li>
+        </ol>
+
+        <!-- <div class="info-links">
+          <p><strong>Código-fonte:</strong> Disponível no <a href="https://github.com/LeowLopez/EPAD-Downloader/" target="_blank">GitHub</a></p>
+          <p><strong>Contato:</strong> Envie sugestões ou dúvidas para <a href="mailto:portal.dirinfra@fab.mil.br">portal.dirinfra@fab.mil.br</a></p>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção de Créditos -->
+  <section id="creditos">
+    <div class="container">
+      <div class="section">
+        <h2>Créditos</h2>
+        
+        <div class="org-credit">
+          <h3>Seção de Análise de Dados da DIRINFRA</h3>
+        </div>
+
+        <div class="credits-grid">
+          <div class="credit-card">
+            <div class="icon">💡</div>
+            <div class="role">Idealizador</div>
+            <div class="name">Cap QOEng CIV <strong>RAMON</strong> Nunes de Oliveira</div>
+            <div class="contribution">Concepção do projeto e definição de requisitos</div>
+          </div>
+
+          <div class="credit-card">
+            <div class="icon">⚙️</div>
+            <div class="role">Desenvolvedor</div>
+            <div class="name">1º Ten QOEng CIV Gabriel <strong>LESSA</strong> de Araújo</div>
+            <div class="contribution">Desenvolvimento e implementação</div>
+          </div>
+
+          <div class="credit-card">
+            <div class="icon">💻</div>
+            <div class="role">Desenvolvedor</div>
+            <div class="name">2º Ten QOCon CIV <strong>LEÔNNYO</strong> Wender Lopes</div>
+            <div class="contribution">Arquitetura, desenvolvimento e implementação</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+   <section id="contato">
+    <div class="container">
+      <div class="section">
+        <h2>Contato</h2>
+        <div class="info-links">
+          <p><strong>Código-fonte:</strong> Disponível no <a href="https://github.com/LeowLopez/EPAD-Downloader/" target="_blank">GitHub</a></p>
+          <p><strong>Contato:</strong> Envie sugestões ou dúvidas para <a href="mailto:portal.dirinfra@fab.mil.br">portal.dirinfra@fab.mil.br</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer>
-    <p>© 2025 EPAD Downloader. Seção de Análise de Dados da DIRINFRA.</p>
+    <p>© 2025 EPAD Downloader | Força Aérea Brasileira > DIRINFRA > EPAD</p>
   </footer>
+
+  <script>
+    // Navegação suave e destaque do item ativo
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+
+    // Destaca link ativo ao rolar
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= sectionTop - 100) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === current) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Destaca link ao clicar
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        navLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
 
 </body>
 </html>

@@ -16,15 +16,14 @@ EPAD-Downloader/
 ├─ icon_inactive.png     # Ícone inativo
 ├─ manifest.json         # Configurações da extensão
 ├─ latest-version.js     # Script para página principal puxar última versão
-├─ index.html            # Página principal GitHub Pages (tutorial + última versão)
+├─ index.html            # Página principal GitHub Pages (tutorial, link última versão, etc)
 ├─ popup/
 │  ├─ index.html         # Popup HTML
-│  ├─ popup.js
-│  └─ style.css
+│  ├─ popup.js           # Ações do popup (envio de mensagens para background.js e content.js)
+│  └─ style.css          # Estilos do popup
 └─ releases/
    ├─ latest.json        # Informação da última versão disponível
    ├─ index.html         # Página de releases (downloads e changelog)
-   ├─ releases.js
    └─ *.zip              # Arquivos compactados de cada versão
 ```
 
