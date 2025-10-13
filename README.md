@@ -42,7 +42,7 @@ EPAD-Downloader/
    O `background.js` ouve mensagens do `content.js` e altera o ícone dependendo da URL atual.
 
 2. **Checagem de atualizações**  
-   Ao iniciar ou periodicamente, o `background.js` verifica a última versão e compara com a atual.  
+   Ao abrir o popup da extensão, o `popup.js` verifica a última versão e compara com a atual.  
    Se houver nova versão, abre a página `/releases/` para download (online).
 
 3. **Popup**  
