@@ -10,17 +10,16 @@ Extensão Chrome para baixar documentos automaticamente do SIGADAER e SILOMS, co
 
 ```
 EPAD-Downloader/
-├─ background.js         # Service Worker, checagem de updates e alteração de ícone
+├─ background.js         # Service Worker e alteração de ícone
 ├─ content.js            # Script injetado nas páginas de SIGADAER e SILOMS (define nomes, etc)
 ├─ icon.png              # Ícone ativo da extensão
 ├─ icon_inactive.png     # Ícone inativo
 ├─ manifest.json         # Configurações da extensão
-├─ latest-version.js     # Script para página principal puxar última versão
-├─ index.html            # Página principal GitHub Pages (tutorial, link última versão, etc)
-├─ releaseData.js        # Consulta os dados da última versão
+├─ index.html            # Página principal GitHub Pages (tutorial, link última versão, créditos, etc)
+├─ releaseData.js        # Consulta os dados da última versão no endpoint do Github
 ├─ popup/
 │  ├─ index.html         # Popup HTML
-│  ├─ popup.js           # Ações do popup (envio de mensagens para background.js e content.js)
+│  ├─ popup.js           # Ações do popup (envio de mensagens para background.js e content.js, check de update de versão, etc)
 │  └─ style.css          # Estilos do popup
 └─ releases/
    ├─ index.html         # Página de releases (downloads e changelog)
