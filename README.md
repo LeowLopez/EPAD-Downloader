@@ -11,7 +11,7 @@ Extensão Chrome para baixar documentos automaticamente do SIGADAER e SILOMS, co
 ```
 EPAD-Downloader/
 ├─ background.js         # Service Worker, checagem de updates e alteração de ícone
-├─ content.js            # Script injetado nas páginas de SIGADAER e SILOMS
+├─ content.js            # Script injetado nas páginas de SIGADAER e SILOMS (define nomes, etc)
 ├─ icon.png              # Ícone ativo da extensão
 ├─ icon_inactive.png     # Ícone inativo
 ├─ manifest.json         # Configurações da extensão
@@ -42,8 +42,8 @@ EPAD-Downloader/
    O `background.js` ouve mensagens do `content.js` e altera o ícone dependendo da URL atual.
 
 2. **Checagem de atualizações**  
-   Ao iniciar ou periodicamente, o `background.js` verifica `latest.json` e compara com `manifest.json`.  
-   Se houver nova versão, abre a página `/releases/` para download.
+   Ao iniciar ou periodicamente, o `background.js` verifica a última versão e compara com a atual.  
+   Se houver nova versão, abre a página `/releases/` para download (online).
 
 3. **Popup**  
    Permite interação rápida e controle de configurações da extensão pelo usuário.

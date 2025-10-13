@@ -1,10 +1,20 @@
-getLatestRelease()
-  .then(data => {
-    document.getElementById('version').innerText = ` v${data.version}`;
-  })
-  .catch(err => console.error('Erro ao carregar release do GitHub:', err));
+let versao = chrome.runtime.getManifest().version;
+document.getElementById('version').innerText = ` v${versao}`;
 
-  
+/////// ------------- VERIFICA VERSÃO E ABRE PARA ATUALIZAR, CASO ESTEJA DIFERENTE
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const data = await getLatestRelease();
+    const currentVersion = chrome.runtime.getManifest().version;
+
+    if (data.version !== currentVersion) {
+      // Abre a página de releases
+      chrome.tabs.create({ url: `https://leowlopez.github.io/EPAD-Downloader/releases/?version=${currentVersion}` });
+    }
+  } catch (err) {
+    console.error('Erro ao checar atualização:', err);
+  }
+});
 
 document.getElementById('baixarSilomsBtn').addEventListener('click', () => {
 
