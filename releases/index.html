@@ -135,49 +135,43 @@
 
     <p class="info">Para instruções de instalação, consulte a página principal.
     </p>
-    
+
     <a href="../index.html" class="tutorial">← Tutorial e página principal.</a>
   </div>
 
-  <script>
-    // Pegar versão da query ?version=
-    const params = new URLSearchParams(location.search)
-    const queriedVersion = params.get('version')
 
-    fetch('latest.json')
-      .then(res => res.json())
+  <script src="../releaseData.js"></script>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const queriedVersion = params.get('version');
+
+    getLatestRelease()
       .then(data => {
-        const currentVersion = data.version
+        const currentVersion = data.version;
 
         if (queriedVersion) {
           document.getElementById('version').innerText =
-            `Atualização disponível: Versão ${queriedVersion} → ${currentVersion}`
+            `Atualização disponível: Versão ${queriedVersion} → ${currentVersion}`;
         } else {
-          document.getElementById('version').innerText = `Versão: ${currentVersion}`
+          document.getElementById('version').innerText = `Versão: ${currentVersion}`;
         }
 
-        const raw = data.notes?.trim() || ''
-        const lines = raw.split('\n')
-
-        let html = '<strong>Novidades:</strong><ul>'
+        const lines = data.notes.split('\n');
+        let html = '<strong>Novidades:</strong><ul>';
         lines.forEach(l => {
-          if (l.trim()) {
-            html += `<li>${l.replace(/^- /, '')}</li>`
-          }
-        })
-        html += '</ul>'
+          if (l.trim()) html += `<li>${l.replace(/^- /, '')}</li>`;
+        });
+        html += '</ul>';
+        document.getElementById('releaseNotes').innerHTML = html;
 
-        document.getElementById('releaseNotes').innerHTML = html
-
-        const link = document.getElementById('downloadLink')
-        if (data.url) {
-          link.href = data.url
-          link.style.display = 'inline-block'
-        }
+        const link = document.getElementById('downloadLink');
+        link.href = data.url;
+        link.style.display = 'inline-block';
       })
       .catch(err => {
-        console.error('Erro ao carregar releases:', err)
-        document.getElementById('notes').innerText = `Erro ao carregar informações da versão: ${err}`
+        console.error('Erro ao carregar release do GitHub:', err);
+        document.getElementById('notes').innerText = `Erro ao carregar informações da versão: ${err}`;
       });
   </script>
 </body>

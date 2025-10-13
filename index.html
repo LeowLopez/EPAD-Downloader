@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,13 +18,19 @@
       --warning: #ffaa00;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     a {
-        color: var(--accent);
-        text-decoration: none;
+      color: var(--accent);
+      text-decoration: none;
     }
 
     body {
@@ -59,7 +66,7 @@
       margin: 0;
     }
 
-    nav a {
+    nav a:not(.destaque) {
       display: block;
       padding: 18px 25px;
       color: var(--text-secondary);
@@ -69,7 +76,7 @@
       font-weight: 500;
     }
 
-    nav a:hover {
+    nav a:not(.destaque):hover {
       color: var(--accent);
       background: rgba(0, 198, 255, 0.05);
     }
@@ -77,6 +84,19 @@
     nav a.active {
       color: var(--accent);
       border-bottom-color: var(--accent);
+    }
+
+    .destaque {
+      color: var(--warning);
+      display: block;
+      padding: 18px 25px;
+      text-decoration: none;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+      font-weight: 500;
+    }
+    .destaque:hover {
+      color: var(--text)
     }
 
     /* Offset para compensar menu fixo */
@@ -193,6 +213,7 @@
       padding-left: 25px;
       color: var(--text-secondary);
     }
+    
 
     ol li {
       margin-bottom: 12px;
@@ -387,18 +408,41 @@
       margin-top: 60px;
     }
 
+
     /* Responsividade */
     @media (max-width: 768px) {
-      nav a { padding: 15px 15px; font-size: 0.9em; }
-      .hero { padding-top: 100px; }
-      .hero h1 { font-size: 2em; }
-      .hero p { font-size: 1.1em; }
-      .section { padding: 25px; }
-      h2 { font-size: 1.6em; }
-      .credits-grid { grid-template-columns: 1fr; }
+      nav a {
+        padding: 15px 15px;
+        font-size: 0.9em;
+      }
+
+      .hero {
+        padding-top: 100px;
+      }
+
+      .hero h1 {
+        font-size: 2em;
+      }
+
+      .hero p {
+        font-size: 1.1em;
+      }
+
+      .section {
+        padding: 25px;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+
+      .credits-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- Navegação Fixa -->
@@ -409,6 +453,7 @@
       <li><a href="#instalacao" class="nav-link">Instalação</a></li>
       <li><a href="#creditos" class="nav-link">Créditos</a></li>
       <li><a href="#contato" class="nav-link">Contato</a></li>
+      <li><a href="releases/index.html" class="destaque">Download</a></li>
     </ul>
   </nav>
 
@@ -427,7 +472,7 @@
     <div class="container">
       <div class="section">
         <h2>O que a extensão faz?</h2>
-        
+
         <!-- SIGADAER -->
         <div class="system-section">
           <div class="system-header">
@@ -441,7 +486,8 @@
             <li><strong>Download automático</strong> de documentos principais e anexos</li>
             <li><strong>Nomenclatura padronizada:</strong> <code>DATA_ID_ORIGEM-DESTINO_ASSUNTO.pdf</code></li>
             <li><strong>Extração inteligente de metadados</strong> das abas "Detalhes" e "Documento/Anexos"</li>
-            <li><strong>Suporte para 5 modelos:</strong> Ofício, Minuta, Processo, Processo Único e Despacho/Portaria</li>
+            <li><strong>Suporte para 5 modelos:</strong> Ofício, Minuta, Processo, Processo Único e Despacho/Portaria
+            </li>
             <li><strong>Normalização automática:</strong> remove acentos, caracteres especiais e formata datas</li>
             <li><strong>Limite de caracteres:</strong> ajusta nomes para respeitar limite do Windows (255 chars)</li>
             <!-- <li><strong>Detecção automática de tipo de arquivo</strong> (PDF, DOCX, XLSX, PPTX)</li> -->
@@ -504,7 +550,8 @@
           <li>Ative o <strong>modo desenvolvedor</strong> no canto superior direito;</li>
           <li>Clique em <strong>"Carregar sem compactação"</strong> e selecione a pasta extraída;</li>
           <li>As extensões do Chrome podem ser encontradas no lado direito da barra de endereços, no ícone de 🧩;</li>
-          <li>Você pode fixar a extensão clicando em 📌, então o ícone da extensão ficará sempre visível - e colorido nos sites habilitados.</li>
+          <li>Você pode fixar a extensão clicando em 📌, então o ícone da extensão ficará sempre visível - e colorido
+            nos sites habilitados.</li>
         </ol>
 
         <!-- <div class="info-links">
@@ -520,7 +567,7 @@
     <div class="container">
       <div class="section">
         <h2>Créditos</h2>
-        
+
         <div class="org-credit">
           <h3>Seção de Análise de Dados da DIRINFRA</h3>
         </div>
@@ -551,13 +598,15 @@
     </div>
   </section>
 
-   <section id="contato">
+  <section id="contato">
     <div class="container">
       <div class="section">
         <h2>Contato</h2>
         <div class="info-links">
-          <p><strong>Código-fonte:</strong> Disponível no <a href="https://github.com/LeowLopez/EPAD-Downloader/" target="_blank">GitHub</a></p>
-          <p><strong>Contato:</strong> Envie sugestões ou dúvidas para <a href="mailto:portal.dirinfra@fab.mil.br">portal.dirinfra@fab.mil.br</a></p>
+          <p><strong>Código-fonte:</strong> Disponível no <a href="https://github.com/LeowLopez/EPAD-Downloader/"
+              target="_blank">GitHub</a></p>
+          <p><strong>Contato:</strong> Envie sugestões ou dúvidas para <a
+              href="mailto:portal.dirinfra@fab.mil.br">portal.dirinfra@fab.mil.br</a></p>
         </div>
       </div>
     </div>
@@ -568,32 +617,10 @@
   </footer>
 
   <script>
-    // Navegação suave e destaque do item ativo
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link:not(.destaque)');
 
-    // Destaca link ativo ao rolar
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= sectionTop - 100) {
-          current = section.getAttribute('id');
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === current) {
-          link.classList.add('active');
-        }
-      });
-    });
-
-    // Destaca link ao clicar
     navLinks.forEach(link => {
-      link.addEventListener('click', function() {
+      link.addEventListener('click', function () {
         navLinks.forEach(l => l.classList.remove('active'));
         this.classList.add('active');
       });
@@ -601,4 +628,5 @@
   </script>
 
 </body>
+
 </html>

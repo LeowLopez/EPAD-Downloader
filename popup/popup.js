@@ -1,20 +1,10 @@
-fetch('../releases/latest.json')
-  .then(res => res.json())
+getLatestRelease()
   .then(data => {
     document.getElementById('version').innerText = ` v${data.version}`;
   })
-  .catch(err => console.error('Erro ao carregar releases:', err));
+  .catch(err => console.error('Erro ao carregar release do GitHub:', err));
 
-document.getElementById('baixarBtn').addEventListener('click', () => {
-  const modeloSelecionado = document.getElementById('modeloSelect').value;
-
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, {
-      action: 'baixar_pdf',
-      modelo: modeloSelecionado
-    });
-  });
-});
+  
 
 document.getElementById('baixarSilomsBtn').addEventListener('click', () => {
 

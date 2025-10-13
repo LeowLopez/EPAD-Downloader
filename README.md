@@ -17,14 +17,13 @@ EPAD-Downloader/
 ├─ manifest.json         # Configurações da extensão
 ├─ latest-version.js     # Script para página principal puxar última versão
 ├─ index.html            # Página principal GitHub Pages (tutorial, link última versão, etc)
+├─ releaseData.js        # Consulta os dados da última versão
 ├─ popup/
 │  ├─ index.html         # Popup HTML
 │  ├─ popup.js           # Ações do popup (envio de mensagens para background.js e content.js)
 │  └─ style.css          # Estilos do popup
 └─ releases/
-   ├─ latest.json        # Informação da última versão disponível
    ├─ index.html         # Página de releases (downloads e changelog)
-   └─ *.zip              # Arquivos compactados de cada versão
 ```
 
 ---
