@@ -95,6 +95,7 @@
       border-bottom: 3px solid transparent;
       font-weight: 500;
     }
+
     .destaque:hover {
       color: var(--text)
     }
@@ -213,7 +214,7 @@
       padding-left: 25px;
       color: var(--text-secondary);
     }
-    
+
 
     ol li {
       margin-bottom: 12px;
@@ -408,6 +409,10 @@
       margin-top: 60px;
     }
 
+    #copiarEmail {
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
 
     /* Responsividade */
     @media (max-width: 768px) {
@@ -549,15 +554,17 @@
           <li>Abra o Chrome e acesse: <code>chrome://extensions</code>;</li>
           <li>Ative o <strong>modo desenvolvedor</strong> no canto superior direito;</li>
           <li>Clique em <strong>"Carregar sem compactação"</strong> e selecione a pasta extraída;</li>
-          <li>As extensões do Chrome podem ser encontradas no lado direito da barra de endereços, no ícone de 🧩;</li>
-          <li>Você pode fixar a extensão clicando em 📌, então o ícone da extensão ficará sempre visível - e colorido
-            nos sites habilitados.</li>
+          <li>As extensões do Chrome ficam disponíveis no ícone 🧩 à direita da barra de endereços;</li>
+          <li>Fixe a extensão clicando no 📌 para mantê-la sempre visível (o ícone fica colorido nos sites habilitados).
+          </li>
         </ol>
 
-        <!-- <div class="info-links">
-          <p><strong>Código-fonte:</strong> Disponível no <a href="https://github.com/LeowLopez/EPAD-Downloader/" target="_blank">GitHub</a></p>
-          <p><strong>Contato:</strong> Envie sugestões ou dúvidas para <a href="mailto:portal.dirinfra@fab.mil.br">portal.dirinfra@fab.mil.br</a></p>
-        </div> -->
+        <div class="info-links">
+          <p><strong>Atualização de extensão:</strong> Caso já possua a extensão instalada e deseja atualizar, com o
+            código baixado,
+            basta substituir os arquivos na mesma pasta da extensão antiga, ir em <code>chrome://extensions</code> e
+            clicar no ícone ⟳ para atualizar.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -581,14 +588,14 @@
           </div>
 
           <div class="credit-card">
-            <div class="icon">⚙️</div>
+            <div class="icon">💻</div>
             <div class="role">Desenvolvedor</div>
             <div class="name">1º Ten QOEng CIV Gabriel <strong>LESSA</strong> de Araújo</div>
-            <div class="contribution">Desenvolvimento e implementação</div>
+            <div class="contribution">Desenvolvimento</div>
           </div>
 
           <div class="credit-card">
-            <div class="icon">💻</div>
+            <div class="icon">⚙️</div>
             <div class="role">Desenvolvedor</div>
             <div class="name">2º Ten QOCon CIV <strong>LEÔNNYO</strong> Wender Lopes</div>
             <div class="contribution">Arquitetura, desenvolvimento e implementação</div>
@@ -603,10 +610,25 @@
       <div class="section">
         <h2>Contato</h2>
         <div class="info-links">
-          <p><strong>Código-fonte:</strong> Disponível no <a href="https://github.com/LeowLopez/EPAD-Downloader/"
-              target="_blank">GitHub</a></p>
-          <p><strong>Contato:</strong> Envie sugestões ou dúvidas para <a
-              href="mailto:portal.dirinfra@fab.mil.br">portal.dirinfra@fab.mil.br</a></p>
+          <p>
+            <strong>Código-fonte:</strong> Disponível no <a href="https://github.com/LeowLopez/EPAD-Downloader/"
+              target="_blank">GitHub</a>
+          </p>
+          <p>
+            <strong>Contato:</strong> Envie sugestões ou dúvidas para
+            <a href="mailto:portal.dirinfra@fab.mil.br" style="display: inline-flex; align-items: center; gap: 4px;">
+              portal.dirinfra@fab.mil.br
+            </a>
+            <span id="copiarEmail" title="Copiar para a área de transferência" onclick="copiarEmail(this)">
+              <svg xmlns="http://www.w3.org/2000/svg" title="Copiar para a área de transferência" width="15px"
+                height="15px" style="bottom: -3px; position: relative" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 
+                  1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 
+                  16H8V7h11v14z">
+                </path>
+              </svg>
+            </span>
+          </p>
         </div>
       </div>
     </div>
@@ -625,6 +647,44 @@
         this.classList.add('active');
       });
     });
+
+
+    function copiarEmail(el) {
+      const email = 'portal.dirinfra@fab.mil.br';
+      navigator.clipboard.writeText(email).then(() => {
+        // Criar elemento de feedback
+        const msg = document.createElement('span');
+        msg.textContent = 'E-mail copiado!';
+        msg.style.position = 'relative';
+        msg.style.top = '0px';
+        // msg.style.left = '50%';
+        // msg.style.transform = 'translateX(-50%)';
+        msg.style.background = 'var(--success)';
+        msg.style.color = '#000';
+        msg.style.padding = '2px 6px';
+        msg.style.borderRadius = '4px';
+        msg.style.fontSize = '0.7em';
+        msg.style.opacity = '0';
+        msg.style.transition = 'opacity 0.5s, top 0.5s';
+
+        el.appendChild(msg);
+
+        // Forçar o reflow para ativar a animação
+        requestAnimationFrame(() => {
+          msg.style.opacity = '1';
+          msg.style.top = '-30px';
+        });
+
+        // Remover após 3 segundos
+        setTimeout(() => {
+          msg.style.opacity = '0';
+          msg.style.top = '-40px';
+          setTimeout(() => el.removeChild(msg), 500);
+        }, 3000);
+      }).catch(err => {
+        console.error('Erro ao copiar e-mail:', err);
+      });
+    }
   </script>
 
 </body>

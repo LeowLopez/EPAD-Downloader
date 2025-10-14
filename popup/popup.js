@@ -9,7 +9,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (data.version !== currentVersion) {
       // Abre a página de releases
-      chrome.tabs.create({ url: `https://leowlopez.github.io/EPAD-Downloader/releases/?version=${currentVersion}` });
+      // abre automaticamente quando abre o popup:
+      // chrome.tabs.create({ url: `https://leowlopez.github.io/EPAD-Downloader/releases/?version=${currentVersion}` });
+
+      // apenas cria o link para o usuário ir para a página:
+      const atualizacaoDiv = document.getElementById('atualizacao');
+      atualizacaoDiv.innerHTML = `
+      <span>🚀 v${data.version} disponível!<br/></span>
+      <a 
+      href="https://leowlopez.github.io/EPAD-Downloader/releases/?version=${currentVersion}" 
+      target="_blank" 
+      >
+          🔄 Atualizar para a nova versão
+        </a>`;
     }
   } catch (err) {
     console.error('Erro ao checar atualização:', err);
