@@ -28,6 +28,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+document.getElementById('baixarBtn').addEventListener('click', () => {
+  const modeloSelecionado = document.getElementById('modeloSelect').value;
+
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, {
+      action: 'baixar_pdf',
+      modelo: modeloSelecionado
+    });
+  });
+});
+
 document.getElementById('baixarSilomsBtn').addEventListener('click', () => {
 
   const incluirSequencial = document.getElementById('checkSiloms').checked;

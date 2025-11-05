@@ -11,8 +11,8 @@
       const span = document.querySelector(`span#span_NM_DOCUMENTO_PA_${i}`);
 
       let sequencial = '';
-      if(incluirSequencial) {
-        if(tipoSequencial === 'SILOMS') sequencial = `${document.querySelector(`span#span_vNR_ORDEM_PA_${i}`).innerText}_`;
+      if (incluirSequencial) {
+        if (tipoSequencial === 'SILOMS') sequencial = `${document.querySelector(`span#span_vNR_ORDEM_PA_${i}`).innerText}_`;
         else sequencial = `${i}_`;
       }
 
@@ -68,6 +68,9 @@
     //Se DESTINO for + que 2 OM, deixa como DIRINFRA
     if (DESTINO.split(',').length > 2) DESTINO = "DIRINFRA";
 
+    // Remove espaços duplos (ou múltiplos) e espaços nas bordas
+    ASSUNTO = ASSUNTO.replace(/\s+/g, ' ').trim();
+    
     // Monta o nome base
     let baseNome = `${DATA}_${ID}_${ORIGEM}-${DESTINO}_${ASSUNTO}.pdf`;
 
@@ -634,6 +637,7 @@
 
   // Listener para mensagem vinda do popup ou background (Aqui que aciona a função quando recebe o clique do popup)
   chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
+    
     if (msg.action === "baixar_pdf") {
       let modelo = msg.modelo;
       if (!modelo) return enviarLog('erro', 'Modelo não definido!');
